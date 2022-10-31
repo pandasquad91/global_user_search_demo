@@ -25,18 +25,23 @@ function valid(params) {
     return false;
 }
 
+/* Given a valid request query, generate the database query. */
+function generateQueryFromParams(params) {
+    let lon = params.lon;
+    let lat = params.lat;
+    // expecting to receive radius in km, but PostGIS operates in meters, so convert it
+    let radius = params.radius * 1000;
+    // Using ST_DistanceSphere for decently fast, decently accurate global search
+    // ST_DistanceSpheroid with earth spheroid could increase accuracy at some speed cost
+    // Reprojection based on the location could speed up search even further
+    return `SELECT username FROM user_loc_test WHERE ST_DistanceSphere(geom, ST_GeomFromText('POINT(${lon} ${lat})', 4326)) <= ${radius}`
+}
+
 /* Search for a set of users by location. */
 router.get('/', function(req, res, next) {
     if (valid(req.query)) {
-        // Using ST_DistanceSphere for decently fast, decently accurate global search
-        // ST_DistanceSpheroid with earth spheroid could increase accuracy at some speed cost
-        // Reprojection based on the location could speed up search even further 
-        db.any("SELECT username FROM user_loc_test WHERE ST_DistanceSphere(geom, ST_GeomFromText('POINT($lon $lat)', 4326)) <= $radius",
-        {
-            lon: req.query.lon,
-            lat: req.query.lat,
-            radius: req.query.radius
-        })
+        let query = generateQueryFromParams(req.query);
+        db.any(query)
         .then((data) => {
             res.send(data);
         })
