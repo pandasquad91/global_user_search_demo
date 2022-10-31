@@ -1,0 +1,18 @@
+{
+  "name": "global_user_search_demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@panda.github.com:pandasquad91/global_user_search_demo.git"
+  },
+  "author": "travis",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
