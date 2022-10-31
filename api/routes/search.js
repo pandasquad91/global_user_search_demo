@@ -27,15 +27,15 @@ function valid(params) {
 
 /* Search for a set of users by location. */
 router.get('/', function(req, res, next) {
-    if (valid(req.params)) {
+    if (valid(req.query)) {
         // Using ST_DistanceSphere for decently fast, decently accurate global search
         // ST_DistanceSpheroid with earth spheroid could increase accuracy at some speed cost
         // Reprojection based on the location could speed up search even further 
-        db.any("SELECT username FROM user_loc WHERE ST_DistanceSphere(geom, ST_GeomFromText('POINT($lon $lat)')) <= $radius",
+        db.any("SELECT username FROM user_loc_test WHERE ST_DistanceSphere(geom, ST_GeomFromText('POINT($lon $lat)', 4326)) <= $radius",
         {
-            lon: req.params.lon,
-            lat: req.params.lat,
-            radius: req.params.radius
+            lon: req.query.lon,
+            lat: req.query.lat,
+            radius: req.query.radius
         })
         .then((data) => {
             res.send(data);
