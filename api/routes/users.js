@@ -3,7 +3,7 @@ var router = express.Router();
 const db = require('../database/connection')
 
 /* GET users listing. */
-router.get('/users', function(req, res, next) {
+router.get('/', function(req, res, next) {
   // Get all the users in the database
   db.any('SELECT username FROM user_loc_test')
   .then((data) => {

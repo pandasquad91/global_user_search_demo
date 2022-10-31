@@ -26,7 +26,7 @@ function valid(body) {
 }
 
 /* Add a user. */
-router.post('/add', function(req, res, next) {
+router.post('/', function(req, res, next) {
     // validate request body has necessary and accurate parameters
     if (valid(req.body)) {
         // use elements in request body for insertion

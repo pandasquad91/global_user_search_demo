@@ -26,7 +26,7 @@ function valid(params) {
 }
 
 /* Search for a set of users by location. */
-router.get('/search', function(req, res, next) {
+router.get('/', function(req, res, next) {
     if (valid(req.params)) {
         // Using ST_DistanceSphere for decently fast, decently accurate global search
         // ST_DistanceSpheroid with earth spheroid could increase accuracy at some speed cost
@@ -43,6 +43,8 @@ router.get('/search', function(req, res, next) {
         .catch((error) => {
             res.send(error);
         })
+    } else {
+        res.send("Error: request params invalid");
     }
 });
 
