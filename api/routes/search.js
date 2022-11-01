@@ -34,7 +34,7 @@ function generateQueryFromParams(params) {
     // Using ST_DistanceSphere for decently fast, decently accurate global search
     // ST_DistanceSpheroid with earth spheroid could increase accuracy at some speed cost
     // Reprojection based on the location could speed up search even further
-    return `SELECT username FROM user_loc_test WHERE ST_DistanceSphere(geom, ST_GeomFromText('POINT(${lon} ${lat})', 4326)) <= ${radius}`
+    return `SELECT username FROM user_loc WHERE ST_DistanceSphere(geom, ST_GeomFromText('POINT(${lon} ${lat})', 4326)) <= ${radius}`
 }
 
 /* Search for a set of users by location. */

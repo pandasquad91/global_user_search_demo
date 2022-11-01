@@ -18,6 +18,11 @@ To initialize the database: `psql -f database_init.sql`
 To import some sample data for testing the project: `psql -f insert_sample_data.sql`
 
 
+### Database Connection
+
+Define the database connection in `/api/database/connection.js` using the correct username and password combination for your postgres user with access to the database you've initialized.
+
+
 ## API Server
 
 Navigate to `/api`. Run `npm install` to install all necessary dependencies.

@@ -5,7 +5,7 @@ const db = require('../database/connection')
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   // Get all the users in the database
-  db.any('SELECT username FROM user_loc_test')
+  db.any('SELECT username FROM user_loc')
   .then((data) => {
     res.send(data);
   })

@@ -30,7 +30,7 @@ function generateInsertFromParams(params) {
     let username = params.username;
     let lon = params.lon;
     let lat = params.lat;
-    return `INSERT INTO user_loc_test (username, geom) VALUES ('${username}', ST_GeomFromText('POINT(${lon} ${lat})', 4326))`;
+    return `INSERT INTO user_loc (username, geom) VALUES ('${username}', ST_GeomFromText('POINT(${lon} ${lat})', 4326))`;
 }
 
 /* Add a user. */
