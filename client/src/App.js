@@ -1,33 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
 import React from 'react';
+import Search from './search'
+import AddUser from './add_user'
 
 
 class App extends React.Component {
     constructor(props) {
       super(props);
-      this.state = { apiResponse: "" };
-    }
-
-    callAPI() {
-      fetch("http://localhost:9000/users")
-          .then(res => res.text())
-          .then(res => this.setState({ apiResponse: res }));
-    }
-
-    componentDidMount() {
-      this.callAPI();
+      this.state = { };
     }
 
     render() {
       return (
         <div className="App">
           <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <p>
-              Edit <code>src/App.js</code> and save to reload.
-            </p>
-            <p className="App-intro">{this.state.apiResponse}</p>
+            <h1>Add user</h1>
+            <AddUser></AddUser>
+            
+            <h1>Search for users</h1>
+            <Search></Search>
           </header>
         </div>
       );
