@@ -6,8 +6,8 @@ const db = require('../database/connection')
 function valid(params) {
     // params should have lon, lat, and radius
     if (params.hasOwnProperty('lon') && params.hasOwnProperty('lat') && params.hasOwnProperty('radius')) {
-        // 0 < radius <= 6378
-        if (params.radius <= 0 || params.radius > 6378) {
+        // 0 < radius <= 40075
+        if (params.radius <= 0 || params.radius > 40075) {
             return false;
         }
         // -180 <= lon <= 180

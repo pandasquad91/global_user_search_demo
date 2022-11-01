@@ -20,8 +20,8 @@ class Search extends React.Component {
         function validateInput(input) {
             // determine if the input is valid
             if (input.hasOwnProperty('search_lon') && input.hasOwnProperty('search_lat') && input.hasOwnProperty('radius')) {
-                // 0 < radius <= 6378
-                if (input.radius <= 0 || input.radius > 6378) {
+                // 0 < radius <= 40075
+                if (input.radius <= 0 || input.radius > 40075) {
                     return false;
                 }
 
