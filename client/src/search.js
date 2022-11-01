@@ -15,12 +15,34 @@ class Search extends React.Component {
 
       searchQuery(event) {
         function validateInput(input) {
-            // TODO: validate input
-            return true;
+            // determine if the input is valid
+            if (input.hasOwnProperty('search_lon') && input.hasOwnProperty('search_lat') && input.hasOwnProperty('radius')) {
+                // 0 < radius <= 6378
+                if (input.radius <= 0 || input.radius > 6378) {
+                    return false;
+                }
+
+                // -180 <= lon <= 180
+                if (input.search_lon > 180 || input.search_lon < -180) {
+                    return false;
+                }
+
+                // -90 <= lat <= 90
+                if (input.search_lat > 90 || input.search_lat < -90) {
+                    return false;
+                }
+
+                // all conditions checked, therefore it is valid
+                return true;
+            }
+            // failed to have the required params, therefore it is invalid
+            return false;
         }
         if (validateInput(this.state)) {
             let lon = this.state.search_lon;
             let lat = this.state.search_lat;
+            // NOTE: Backend is doing conversion to meters, do not handle it here
+            // This could cause errors in the future
             let radius = this.state.radius;
             
             fetch(api + `search?lon=${lon}&lat=${lat}&radius=${radius}`)

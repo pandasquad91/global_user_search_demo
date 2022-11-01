@@ -14,8 +14,28 @@ class AddUser extends React.Component {
 
       insertUser(event) {
         function validateInput(input) {
-            // TODO: validate all the input
-            return true;
+            // determine if the input is valid
+            if (input.hasOwnProperty('user_lon') && input.hasOwnProperty('user_lat') && input.hasOwnProperty('username')) {
+                // 0 < username.length <= 1000
+                if (input.username.length <= 0 || input.username.length > 1000) {
+                    return false;
+                }
+
+                // -180 <= lon <= 180
+                if (input.user_lon > 180 || input.user_lon < -180) {
+                    return false;
+                }
+
+                // -90 <= lat <= 90
+                if (input.user_lat > 90 || input.user_lat < -90) {
+                    return false;
+                }
+
+                // all conditions checked, therefore it is valid
+                return true;
+            }
+            // failed to have the required params, therefore it is invalid
+            return false;
         }
 
         if (validateInput(this.state)) {
