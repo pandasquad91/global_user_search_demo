@@ -48,9 +48,6 @@ class Search extends React.Component {
             // NOTE: Backend is doing conversion to meters, do not handle it here
             // This could cause errors in the future
             let radius = this.state.radius;
-
-            // DEBUG
-            console.log('API call to: ' + api + `search?lon=${lon}&lat=${lat}&radius=${radius}`);
             
             fetch(api + `search?lon=${lon}&lat=${lat}&radius=${radius}`)
             .then(res => res.json())

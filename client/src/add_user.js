@@ -49,9 +49,6 @@ class AddUser extends React.Component {
                 method: 'POST',
             }
 
-            // DEBUG
-            console.log('API call to: ' + api + `add?username=${username}&lon=${lon}&lat=${lat}`);
-
             fetch(api + `add?username=${username}&lon=${lon}&lat=${lat}`, requestOptions)
             .then(res => this.setState({...this.state, statusMsg: `Successfully inserted new user ${this.state.username}`}));
         } else {
