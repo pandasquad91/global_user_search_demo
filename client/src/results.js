@@ -10,7 +10,7 @@ class Results extends React.Component {
     // If there are results, render them
     // Otherwise, just say there's nothing
     render() {
-      if (this.state.searchResults == null || this.state.searchResults == {} || this.state.searchResults == []) {
+      if (this.props.searchResults == null || this.props.searchResults == {} || this.props.searchResults == []) {
         <div>
             <p>No results found.</p>
         </div>
@@ -18,7 +18,7 @@ class Results extends React.Component {
         <div>
             <ol>
                 {
-                    this.state.searchResults.map((result, i) => <li key={i}>{result}</li>)
+                    this.props.searchResults.map((result, i) => <li key={i}>{result}</li>)
                 }
             </ol>
         </div>
