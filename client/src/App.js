@@ -1,6 +1,7 @@
 import './App.css';
 import React from 'react';
 import Results from './results'
+import Search from './search'
 
 
 class App extends React.Component {
@@ -16,6 +17,7 @@ class App extends React.Component {
             <h1>Add user</h1>
             
             <h1>Search for users</h1>
+            <Search apiResponse={this.state.apiResponse}></Search>
 
             <h1>Users found:</h1>
             <Results searchResults={this.state.apiResponse}></Results>
