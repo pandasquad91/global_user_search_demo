@@ -10,7 +10,8 @@ class Search extends React.Component {
       }
   
       handleChange(event) {
-          this.setState({...this.state, [event.target.id]: event.target.value})
+          this.setState({...this.state, [event.target.id]: event.target.value});
+          console.log(`Last API response: ${this.state.temp_response}`);
       }
 
       searchQuery(event) {
@@ -53,7 +54,8 @@ class Search extends React.Component {
             
             fetch(api + `search?lon=${lon}&lat=${lat}&radius=${radius}`)
             .then(res => res.json())
-            .then(res => this.setState({...this.state, apiResponse: res}));
+            // extract usernames out of json response to plain array
+            .then(res => this.setState({...this.state, apiResponse: res.map(element => element['username'])}));
         }
       }
   
