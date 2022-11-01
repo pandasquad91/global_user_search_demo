@@ -5,14 +5,16 @@ import api from './api'
 class AddUser extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { user_lon: '', user_lat: '', username: '', statusMsg: '' };
+        this.state = { user_lon: '', user_lat: '', username: '', statusMsg: '...' };
       }
   
       handleChange(event) {
-          this.setState({...this.state, [event.target.name]: event.target.value})
+        this.setState({...this.state, [event.target.id]: event.target.value})
       }
 
       insertUser(event) {
+        event.preventDefault();
+
         function validateInput(input) {
             // determine if the input is valid
             if (input.hasOwnProperty('user_lon') && input.hasOwnProperty('user_lat') && input.hasOwnProperty('username')) {
@@ -47,20 +49,23 @@ class AddUser extends React.Component {
                 method: 'POST',
             }
 
+            // DEBUG
+            console.log('API call to: ' + api + `add?username=${username}&lon=${lon}&lat=${lat}`);
+
             fetch(api + `add?username=${username}&lon=${lon}&lat=${lat}`, requestOptions)
-            .then(res => this.state.statusMsg = `Successfully inserted new user ${this.state.username}`);
+            .then(res => this.setState({...this.state, statusMsg: `Successfully inserted new user ${this.state.username}`}));
         } else {
-            this.state.statusMsg = 'Could not insert user, check input data';
+            this.setState({...this.state, statusMsg: 'Could not insert user, check input data'});
         }
       }
   
       render() {
         return (
           <div>
-            <form onSubmit={this.insertUser}>
-                <p>lon: </p> <input id="user_lat" type="text" value={this.state.user_lat} onChange={this.handleChange}></input>
-                <p>lat: </p> <input id="user_lon" type="text" value={this.state.user_lon} onChange={this.handleChange}></input>
-                <p>username: </p> <input id="username" type="text" value={this.state.username} onChange={this.handleChange}></input>
+            <form onSubmit={e => this.insertUser(e)}>
+                <p>lon: </p> <input id="user_lon" type="text" value={this.state.user_lon} onChange={e => this.handleChange(e)}></input>
+                <p>lat: </p> <input id="user_lat" type="text" value={this.state.user_lat} onChange={e => this.handleChange(e)}></input>
+                <p>username: </p> <input id="username" type="text" value={this.state.username} onChange={e => this.handleChange(e)}></input>
                 <input type="submit" value="Add"></input>
             </form>
             <p>{this.state.statusMsg}</p>
