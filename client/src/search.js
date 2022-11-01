@@ -53,7 +53,7 @@ class Search extends React.Component {
             
             fetch(api + `search?lon=${lon}&lat=${lat}&radius=${radius}`)
             .then(res => res.json())
-            .then(res => this.state.apiResponse = res);
+            .then(res => this.setState({...this.state, apiResponse: res}));
         }
       }
   
