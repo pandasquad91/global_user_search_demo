@@ -10,10 +10,12 @@ class Search extends React.Component {
       }
   
       handleChange(event) {
-          this.setState({...this.state, [event.target.name]: event.target.value})
+          this.setState({...this.state, [event.target.id]: event.target.value})
       }
 
       searchQuery(event) {
+        event.preventDefault();
+
         function validateInput(input) {
             // determine if the input is valid
             if (input.hasOwnProperty('search_lon') && input.hasOwnProperty('search_lat') && input.hasOwnProperty('radius')) {
@@ -38,12 +40,16 @@ class Search extends React.Component {
             // failed to have the required params, therefore it is invalid
             return false;
         }
+
         if (validateInput(this.state)) {
             let lon = this.state.search_lon;
             let lat = this.state.search_lat;
             // NOTE: Backend is doing conversion to meters, do not handle it here
             // This could cause errors in the future
             let radius = this.state.radius;
+
+            // DEBUG
+            console.log('API call to: ' + api + `search?lon=${lon}&lat=${lat}&radius=${radius}`);
             
             fetch(api + `search?lon=${lon}&lat=${lat}&radius=${radius}`)
             .then(res => res.json())
@@ -55,11 +61,11 @@ class Search extends React.Component {
         return (
             <div>
                 <div>
-                    <form onSubmit={this.searchQuery}>
-                        <p>lon: </p> <input id="search_lon" type="text" value={this.state.search_lon} onChange={this.handleChange}></input>
-                        <p>lat: </p> <input id="search_lat" type="text" value={this.state.search_lat} onChange={this.handleChange}></input>
-                        <p>radius: </p> <input id="radius" type="text" value={this.state.radius} onChange={this.handleChange}></input>
-                        <input type="submit" value="Submit"></input>
+                    <form onSubmit={e => this.searchQuery(e)}>
+                        <p>lon: </p> <input id="search_lon" type="text" value={this.state.search_lon} onChange={e => this.handleChange(e)}></input>
+                        <p>lat: </p> <input id="search_lat" type="text" value={this.state.search_lat} onChange={e => this.handleChange(e)}></input>
+                        <p>radius: </p> <input id="radius" type="text" value={this.state.radius} onChange={e => this.handleChange(e)}></input>
+                        <input type="submit" value="Search"></input>
                     </form>
                 </div>
                 <h1>Users found:</h1>
